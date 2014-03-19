@@ -207,28 +207,28 @@ extern BOOL isNull(id value)
 #pragma mark - string <-> date
 -(NSDate*)__NSDateFromNSString:(NSString*)string
 {
-    static NSDateFormatter *dateFormatter;
+    static NSDateFormatter *dateFormatterString;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HHmmssZZZZ"];
+        dateFormatterString = [[NSDateFormatter alloc] init];
+        [dateFormatterString setDateFormat:@"yyyy-MM-dd'T'HHmmssZZZZ"];
     });
     
     string = [string stringByReplacingOccurrencesOfString:@":" withString:@""]; // this is such an ugly code, is this the only way?
     
-    return [dateFormatter dateFromString: string];
+    return [dateFormatterString dateFromString: string];
 }
 
 -(NSString*)__JSONObjectFromNSDate:(NSDate*)date
 {
-    static NSDateFormatter *dateFormatter;
+    static NSDateFormatter *dateFormatterJSON;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
+        dateFormatterJSON = [[NSDateFormatter alloc] init];
+        [dateFormatterJSON setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZ"];
     });
     
-    return [dateFormatter stringFromDate:date];
+    return [dateFormatterJSON stringFromDate:date];
 }
 
 @end
